@@ -1,4 +1,6 @@
 MAX_LINES = 4
+MIN_BET = 1
+MAX_BET = 100
 
 # Deposit money function
 def deposit():
@@ -29,4 +31,20 @@ def get_number_of_lines():
             print("Enter a valid number!")
     
     return lines
+
+# Betting function
+def bet():
+    while True:
+        bet = input(f"Enter an amount to bet (${MIN_BET} - ${MAX_BET}): ")
+        if bet.isdigit():
+            bet = int(bet)
+            if MIN_BET <= bet <= MAX_BET:
+                break
+            else:
+                print(f"Enter a valid amount to bet. Bet must be ${MIN_BET} - ${MAX_BET}")
+        else:
+            print("Enter a valid number!")
+    
+    return bet
+
 
