@@ -14,12 +14,34 @@ symbol_count = {
     "D" : 8
 }
 
+symbol_values = {
+    "A" : 5,
+    "B" : 4,
+    "C" : 3,
+    "D" : 2
+}
+
+# check winnings function
+def check_winnings(columns, lines, bet, values):
+    winnings = 0
+
+    for line in range(lines):
+        symbol = columns[0][line]
+        for column in columns:
+            symbol_to_check = column[line]
+            if symbol != symbol_to_check:
+                break
+        else:
+            winnings += values[symbol] * bet
+
+    return winnings
+
 # slot machine spin function
 def get_slot_machine_spin(rows, cols, symbols):
     all_symbols = []
 
     # creating a single symbols list and append all the values in symbol_count variable to it
-    for symbol, symbol_count in symbols:
+    for symbol, symbol_count in symbols.items():
         for _ in range(symbol_count):
             all_symbols.append(symbol)
 
@@ -42,9 +64,10 @@ def print_slot_machine(columns):
     for row in range(len(columns[0])):
         for i, column in enumerate(columns):
             if i != len(columns) - 1:
-                print(column[row], "|")
+                print(column[row], end=" | ")
             else:
-                print(column[row])
+                print(column[row], end="")
+        print()
 
 # Deposit money function
 def deposit():
@@ -106,6 +129,9 @@ def game():
             break
 
     print(f"You're betting ${bet} in {lines} lines. Total bet is ${total_bet}")
+
+    slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
+    print_slot_machine(slots)
 
 game()
 
